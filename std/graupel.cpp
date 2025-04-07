@@ -13,6 +13,7 @@
 #include <algorithm>
 #include <iostream>
 #include <numeric>
+#include <execution>
 #include <omp.h>
 
 using namespace property;
