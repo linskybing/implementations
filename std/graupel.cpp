@@ -284,17 +284,13 @@ void graupel(size_t &nvec, size_t &ke, size_t &ivstart, size_t &ivend,
              (dqdt[lqi] + dqdt[lqs] + dqdt[lqg]) *
                  (lsc - (ci - cvv) * t[oned_vec_index])) /
             cv;
-
-    // reset all values of sx2x to zero
-    for (auto &v : sx2x) {
-      std::fill(v.begin(), v.end(), 0);
-    }
   }
 
   size_t k_end = (lrain) ? ke : kstart - 1;
 
-  for (size_t k = kstart; k < k_end; k++) {
-    for (size_t iv = ivstart; iv < ivend; iv++) {
+  #pragma omp parallel for
+  for (size_t iv = ivstart; iv < ivend; iv++) {
+    for (size_t k = kstart; k < k_end; k++) {
 
       size_t oned_vec_index = k * ivend + iv;
 
